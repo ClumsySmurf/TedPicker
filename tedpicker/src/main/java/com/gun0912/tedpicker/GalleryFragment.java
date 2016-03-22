@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,24 @@ public class GalleryFragment extends Fragment {
 
     public static ImageGalleryAdapter mGalleryAdapter;
     public static ImagePickerActivity mActivity;
+    private static final String ARG_ALBUM_NAME = "arg_album_name";
+    private long albumId;
+
+    public static GalleryFragment newInstance(long albumId) {
+        Bundle args = new Bundle();
+        args.putLong(ARG_ALBUM_NAME, albumId);
+        GalleryFragment fragment = new GalleryFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            albumId = getArguments().getLong(ARG_ALBUM_NAME);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,9 +117,11 @@ public class GalleryFragment extends Fragment {
         try {
             final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.ImageColumns.ORIENTATION};
             final String orderBy = MediaStore.Images.Media.DATE_ADDED + " DESC";
+            final String selection = MediaStore.Images.Media.BUCKET_ID + " = "+ albumId;
+//            String searchParams = "bucket_display_name = \"" + albumId + "\"";
 
 
-            imageCursor = context.getApplicationContext().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy);
+            imageCursor = context.getApplicationContext().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, selection, null, orderBy);
             while (imageCursor.moveToNext()) {
                 Uri uri = Uri.parse(imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA)));
                 images.add(uri);

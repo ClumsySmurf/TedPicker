@@ -44,7 +44,8 @@ public class PagerAdapter_Picker extends FragmentPagerAdapter {
 
 
             case 1:
-                return new GalleryFragment();
+                return new AlbumFragment();
+//                return new GalleryFragment();
 
 
             default:
