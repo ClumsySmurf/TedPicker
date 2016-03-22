@@ -88,7 +88,7 @@ public class GalleryFragment extends Fragment {
         return rootView;
     }
 
-
+/*
     public void refreshGallery(Context context) {
 
         List<Uri> images = getImagesFromGallary(context);
@@ -105,7 +105,7 @@ public class GalleryFragment extends Fragment {
         }
 
 
-    }
+    }*/
 
 
     public List<Uri> getImagesFromGallary(Context context) {
