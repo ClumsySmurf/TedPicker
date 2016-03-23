@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Sensor;
@@ -39,6 +38,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
 import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.CameraView;
 import com.commonsware.cwac.camera.PictureTransaction;
@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class CwacCameraFragment extends Fragment implements View.OnClickListener {
@@ -567,7 +568,15 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         public void saveImage(PictureTransaction xact, byte[] image) {
 
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+            Bitmap bitmap = null;
+            try {
+                bitmap = Glide.with(getContext()).load(image).asBitmap().into(-1,-1).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
             try {
 
