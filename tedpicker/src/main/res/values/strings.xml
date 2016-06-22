@@ -33,4 +33,6 @@
 
     <string name="default_directory">Pictures</string>
 
+    <string name="all_photos">All Photos</string>
+
 </resources>

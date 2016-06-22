@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.gun0912.tedpicker.R;
 import com.gun0912.tedpicker.custom.adapter.MyAlbumRecyclerViewAdapter;
 import com.gun0912.tedpicker.models.GalleryPhotoAlbum;
+import com.gun0912.tedpicker.util.GalleryUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class AlbumFragment extends Fragment {
         recyclerView.setAdapter(new MyAlbumRecyclerViewAdapter(getContext(), galleryPhotoAlbums, new OnListFragmentInteractionListener() {
             @Override
             public void onListFragmentInteraction(GalleryPhotoAlbum item) {
-                GalleryFragment galleryFragment = GalleryFragment.newInstance(item.getBucketId());
+                GalleryFragment galleryFragment = GalleryFragment.newInstance(item);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.containerqq, galleryFragment);
                 transaction.addToBackStack("");
@@ -76,11 +77,25 @@ public class AlbumFragment extends Fragment {
     }
 
     private void getImageAlbumList() {
+
+
+        ArrayList<GalleryPhotoAlbum> albums = GalleryUtil.getAlbums(getContext());
+
+
         galleryPhotoAlbums.clear();
-        String[] PROJECTION_BUCKET = {MediaStore.Images.ImageColumns.BUCKET_ID, MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME, MediaStore.Images.ImageColumns.DATE_TAKEN, MediaStore.Images.ImageColumns.DATA};
+
+        galleryPhotoAlbums.addAll(albums);
+
+
+        /*
+        String[] PROJECTION_BUCKET = {MediaStore.Images.ImageColumns.BUCKET_ID,
+                MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME,
+                MediaStore.Images.ImageColumns.DATE_TAKEN,
+                MediaStore.Images.ImageColumns.DATA};
         String BUCKET_GROUP_BY = "1) GROUP BY 1,(2";
         String BUCKET_ORDER_BY = "MAX(datetaken) DESC";
         Uri images = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+
         Cursor cur = getContext().getContentResolver().query(images, PROJECTION_BUCKET, BUCKET_GROUP_BY, null, BUCKET_ORDER_BY);
         GalleryPhotoAlbum album;
         if (cur.moveToFirst()) {
@@ -116,7 +131,7 @@ public class AlbumFragment extends Fragment {
 
         }
 
-        cur.close();
+        cur.close();*/
 
     }
 

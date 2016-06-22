@@ -22,6 +22,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpicker.models.GalleryPhoto;
+import com.gun0912.tedpicker.models.GalleryPhotoAlbum;
 import com.gun0912.tedpicker.view.CustomSquareFrameLayout;
 
 import java.util.ArrayList;
@@ -36,7 +38,9 @@ public class GalleryFragment extends Fragment {
     public static ImageGalleryAdapter mGalleryAdapter;
     public static ImagePickerActivity mActivity;
     private static final String ARG_ALBUM_NAME = "arg_album_name";
+    private static final String ARG_ALBUM = "album";
     private long albumId;
+    public GalleryPhotoAlbum album;
 
     public static GalleryFragment newInstance(long albumId) {
         Bundle args = new Bundle();
@@ -45,6 +49,13 @@ public class GalleryFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    public static GalleryFragment newInstance(GalleryPhotoAlbum album) {
+        GalleryFragment fragment = new GalleryFragment();
+        fragment.album = album;
+        return fragment;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +73,8 @@ public class GalleryFragment extends Fragment {
         mActivity = ((ImagePickerActivity) getActivity());
 
 
-        List<Uri> images = getImagesFromGallary(getActivity());
-        mGalleryAdapter = new ImageGalleryAdapter(getActivity(), images);
+       // List<Uri> images = getImagesFromGallary(getActivity());
+        mGalleryAdapter = new ImageGalleryAdapter(getActivity(), album.imageList);
 
         galleryGridView.setAdapter(mGalleryAdapter);
         galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,7 +82,8 @@ public class GalleryFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-                Uri mUri = mGalleryAdapter.getItem(i);
+                GalleryPhoto photo = mGalleryAdapter.getItem(i);
+                Uri mUri = Uri.parse(photo.path);
 
 
                 if (!mActivity.containsImage(mUri)) {
@@ -158,12 +170,12 @@ public class GalleryFragment extends Fragment {
 
     }
 
-    public class ImageGalleryAdapter extends ArrayAdapter<Uri> {
+    public class ImageGalleryAdapter extends ArrayAdapter<GalleryPhoto> {
 
         Context context;
 
 
-        public ImageGalleryAdapter(Context context, List<Uri> images) {
+        public ImageGalleryAdapter(Context context, ArrayList<GalleryPhoto> images) {
             super(context, 0, images);
             this.context = context;
         }
@@ -171,6 +183,7 @@ public class GalleryFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final ViewHolder holder;
+
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.picker_grid_item_gallery_thumbnail, null);
                 holder = new ViewHolder(convertView);
@@ -180,8 +193,8 @@ public class GalleryFragment extends Fragment {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-
-            final Uri mUri = getItem(position);
+            final GalleryPhoto photo = getItem(position);
+            final Uri mUri = Uri.parse(photo.path);
             boolean isSelected = mActivity.containsImage(mUri);
 
 

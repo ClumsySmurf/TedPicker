@@ -39,7 +39,8 @@ public class MyAlbumRecyclerViewAdapter extends RecyclerView.Adapter<MyAlbumRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        Uri mUri = Uri.parse(holder.mItem.getData());
+
+        Uri mUri = Uri.parse(holder.mItem.coverImage.path);
         if (holder.uri == null || !holder.uri.equals(mUri)) {
             Glide.with(context)
                     .load(mUri.toString())
