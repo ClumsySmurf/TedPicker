@@ -202,7 +202,7 @@ public class ImagePickerActivity extends AppCompatActivity implements CameraHost
 
     }
 
-
+/*
     public GalleryFragment getGalleryFragment() {
 
         if (adapter == null || adapter.getCount() < 2)
@@ -210,7 +210,7 @@ public class ImagePickerActivity extends AppCompatActivity implements CameraHost
 
         return (GalleryFragment) adapter.getItem(1);
 
-    }
+    }*/
 
     public void addImage(final Uri uri) {
 
