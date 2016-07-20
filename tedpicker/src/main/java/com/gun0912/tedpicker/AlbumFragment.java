@@ -1,6 +1,5 @@
 package com.gun0912.tedpicker;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gun0912.tedpicker.R;
 import com.gun0912.tedpicker.custom.adapter.MyAlbumRecyclerViewAdapter;
 import com.gun0912.tedpicker.models.GalleryPhotoAlbum;
 
@@ -121,12 +119,13 @@ public class AlbumFragment extends Fragment {
     }
 
     private int photoCountByAlbum(String bucketName) {
+        Cursor mPhotoCursor = null;
         try {
             final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
             String searchParams = null;
             String bucket = bucketName;
             searchParams = "bucket_display_name = \"" + bucket + "\"";
-            Cursor mPhotoCursor = getContext().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, searchParams, null, orderBy + " DESC");
+             mPhotoCursor = getContext().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, searchParams, null, orderBy + " DESC");
 
             if (mPhotoCursor.getCount() > 0) {
                 return mPhotoCursor.getCount();
@@ -134,7 +133,15 @@ public class AlbumFragment extends Fragment {
             mPhotoCursor.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            if (mPhotoCursor != null) {
+                mPhotoCursor.close();
+            }
+            Log.i("AlbumFragment", "PhotoCursor: " +  e.getLocalizedMessage());
+        } finally {
+            
+            if (mPhotoCursor != null && !mPhotoCursor.isClosed()) {
+                mPhotoCursor.close();
+            }
         }
         return 0;
     }

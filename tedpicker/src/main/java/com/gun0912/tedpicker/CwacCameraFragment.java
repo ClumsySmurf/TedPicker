@@ -438,11 +438,6 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         }
 
 
-        @Override
-        public float maxPictureCleanupHeapUsage() {
-            return 0.3f;
-        }
-
 
         private Camera.Size getBestPictureSize(Camera.Parameters parameters) {
             Log.d("gun0912", "getBestPictureSize()");
