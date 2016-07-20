@@ -46,7 +46,7 @@ public class ImagePickerActivity extends AppCompatActivity implements CameraHost
      */
 
     public ArrayList<Uri> mSelectedImages;
-    protected Toolbar toolbar;
+    public Toolbar toolbar;
     View view_root;
     TextView mSelectedImageEmptyMessage;
     View view_selected_photos_container;

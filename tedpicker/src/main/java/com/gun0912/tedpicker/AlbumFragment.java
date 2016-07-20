@@ -138,7 +138,7 @@ public class AlbumFragment extends Fragment {
             }
             Log.i("AlbumFragment", "PhotoCursor: " +  e.getLocalizedMessage());
         } finally {
-            
+
             if (mPhotoCursor != null && !mPhotoCursor.isClosed()) {
                 mPhotoCursor.close();
             }
