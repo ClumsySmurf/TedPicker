@@ -202,7 +202,7 @@ public class ImagePickerActivity extends AppCompatActivity implements CameraHost
 
     }
 
-/*
+
     public GalleryFragment getGalleryFragment() {
 
         if (adapter == null || adapter.getCount() < 2)
@@ -210,7 +210,7 @@ public class ImagePickerActivity extends AppCompatActivity implements CameraHost
 
         return (GalleryFragment) adapter.getItem(1);
 
-    }*/
+    }
 
     public void addImage(final Uri uri) {
 
@@ -248,7 +248,7 @@ public class ImagePickerActivity extends AppCompatActivity implements CameraHost
         if (mSelectedImages.size() == 0) {
             mSelectedImageEmptyMessage.setVisibility(View.VISIBLE);
         }
-        GalleryFragment.mGalleryAdapter.notifyDataSetChanged();
+       // GalleryFragment.mGalleryAdapter.notifyDataSetChanged();
 
 
 
@@ -284,7 +284,7 @@ public class ImagePickerActivity extends AppCompatActivity implements CameraHost
 
     }
 
-    private void updatePicture() {
+    public void updatePicture() {
 
         if (mSelectedImages.size() < mConfig.getSelectionMin()) {
             String text = String.format(getResources().getString(R.string.min_count_msg), mConfig.getSelectionMin());

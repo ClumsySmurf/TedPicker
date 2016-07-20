@@ -34,6 +34,7 @@ public class Config {
 
     private int savedDirectoryName = R.string.default_directory;
 
+    private float maxPictureCleanupHeapUsage = 1.0f;
 
     private boolean flashOn = false;
 
@@ -50,6 +51,15 @@ public class Config {
 
     public int getSavedDirectoryName() {
         return savedDirectoryName;
+    }
+
+    public float getMaxPictureCleanupHeapUsage() {
+        return maxPictureCleanupHeapUsage;
+    }
+
+    public void setMaxPictureCleanupHeapUsage(float maxPictureCleanupHeapUsage) {
+        this.maxPictureCleanupHeapUsage = maxPictureCleanupHeapUsage;
+
     }
 
     public void setSavedDirectoryName(@StringRes int stringRes) {
