@@ -69,6 +69,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
     ImageButton btn_take_picture;
     View vShutter;
     CameraView cameraView;
+    ImageButton btn_toggle_flash;
     DrawingView drawingView;
     List<Camera.Area> focusList;
     int device_orientation;
@@ -219,12 +220,25 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         btn_take_picture.setImageResource(mConfig.getCameraBtnImage());
         btn_take_picture.setBackgroundResource(mConfig.getCameraBtnBackground());
 
+        btn_toggle_flash = (ImageButton) view.findViewById(R.id.cam_flash_btn);
+        btn_toggle_flash.setOnClickListener(this);
+
+        updateFlashBttn();
+
 
         vShutter = view.findViewById(R.id.vShutter);
 
 
         drawingView = (DrawingView) view.findViewById(R.id.drawingView);
 
+    }
+
+    private void updateFlashBttn() {
+        if (mConfig.isFlashOn()) {
+            btn_toggle_flash.setImageResource(mConfig.getFlashBtnImageOn());
+        } else {
+            btn_toggle_flash.setImageResource(mConfig.getFlashBtnImageOff());
+        }
     }
 
     private void focusOnTouch(MotionEvent event) {
@@ -315,8 +329,14 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         if (v == btn_take_picture) {
             onTakePicture(v);
+        } else if (v == btn_toggle_flash) {
+            onTogleFlash(v);
         }
+    }
 
+    private void onTogleFlash(View v) {
+        mConfig.setFlashOn(!mConfig.isFlashOn());
+        updateFlashBttn();
     }
 
     private void takePicture() {
