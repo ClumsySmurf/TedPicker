@@ -216,11 +216,12 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
     private void initView() {
 
-        cameraView = (CameraView) view.findViewById(R.id.cameraView);
-
+        
         if (view == null) {
             return;
         }
+
+        cameraView = (CameraView) view.findViewById(R.id.cameraView);
         
         btn_take_picture = (ImageButton) view.findViewById(R.id.btn_take_picture);
         btn_take_picture.setOnClickListener(this);
