@@ -32,6 +32,9 @@ public class Config {
     private int cameraBtnImage = R.drawable.ic_camera;
     private int cameraBtnBackground = R.drawable.btn_bg;
 
+    private int flashBtnImageOn = R.drawable.ic_flash_on_black_24dp;
+    private int flashBtnImageOff = R.drawable.ic_flash_off_black_24dp;
+
     private int selectedCloseImage = R.drawable.ic_clear;
     private int selectedBottomHeight = R.dimen.ted_picker_selected_image_height;
 
@@ -185,6 +188,19 @@ public class Config {
     public void setCameraBtnBackground(@DrawableRes int drawableRes) {
         if (drawableRes <= 0) throw new IllegalArgumentException("Invalid value for cameraBtnBackground");
         this.cameraBtnBackground = drawableRes;
+    }
+
+    public int getFlashBtnImageOn() { return flashBtnImageOn; }
+    public int getFlashBtnImageOff() { return flashBtnImageOff; }
+
+    public void setFlashBtnImageOn(@DrawableRes int res) {
+        if (res <= 0) throw new IllegalArgumentException("Invalid value for flash bttn image on");
+        this.flashBtnImageOn = res;
+    }
+
+    public void setFlashBtnImageOff(@DrawableRes int res) {
+        if (res <= 0) throw new IllegalArgumentException("Invalid value for flash bttn image off");
+        this.flashBtnImageOff = res;
     }
 
 

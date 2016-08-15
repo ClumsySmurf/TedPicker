@@ -69,6 +69,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
     ImageButton btn_take_picture;
     View vShutter;
     CameraView cameraView;
+    ImageButton btn_toggle_flash;
     DrawingView drawingView;
     List<Camera.Area> focusList;
     int device_orientation;
@@ -212,12 +213,22 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView() {
+
         cameraView = (CameraView) view.findViewById(R.id.cameraView);
 
+        if (view == null) {
+            return;
+        }
+        
         btn_take_picture = (ImageButton) view.findViewById(R.id.btn_take_picture);
         btn_take_picture.setOnClickListener(this);
         btn_take_picture.setImageResource(mConfig.getCameraBtnImage());
         btn_take_picture.setBackgroundResource(mConfig.getCameraBtnBackground());
+
+        btn_toggle_flash = (ImageButton) view.findViewById(R.id.cam_flash_btn);
+        btn_toggle_flash.setOnClickListener(this);
+
+        updateFlashBttn();
 
 
         vShutter = view.findViewById(R.id.vShutter);
@@ -225,6 +236,14 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
         drawingView = (DrawingView) view.findViewById(R.id.drawingView);
 
+    }
+
+    private void updateFlashBttn() {
+        if (mConfig.isFlashOn()) {
+            btn_toggle_flash.setImageResource(mConfig.getFlashBtnImageOn());
+        } else {
+            btn_toggle_flash.setImageResource(mConfig.getFlashBtnImageOff());
+        }
     }
 
     private void focusOnTouch(MotionEvent event) {
@@ -315,8 +334,14 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         if (v == btn_take_picture) {
             onTakePicture(v);
+        } else if (v == btn_toggle_flash) {
+            onTogleFlash(v);
         }
+    }
 
+    private void onTogleFlash(View v) {
+        mConfig.setFlashOn(!mConfig.isFlashOn());
+        updateFlashBttn();
     }
 
     private void takePicture() {

@@ -25,3 +25,19 @@ proguard/
 
 # Log Files
 *.log
+
+.idea/workspace.xml
+
+*.iml
+
+app/app.iml
+
+.idea/workspace.xml
+
+tedpicker/tedpicker.iml
+
+.idea/workspace.xml
+
+app/app.iml
+
+.idea/misc.xml
