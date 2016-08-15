@@ -8,6 +8,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 
 /**
  * Created by jay on 3/5/15.
@@ -15,6 +16,8 @@ import android.support.annotation.StringRes;
 public class Config {
 
     private int toolbarTitleRes = R.string.toolbar_title;
+
+    private int toolbarDoneButonRes = R.string.done;
 
     private int tabBackgroundColor;
     private int tabSelectionIndicatorColor;
@@ -34,6 +37,7 @@ public class Config {
 
     private int savedDirectoryName = R.string.default_directory;
 
+    private int toolbarThemeRes = R.style.ToolBarStyle;
     private float maxPictureCleanupHeapUsage = 1.0f;
 
     private boolean flashOn = false;
@@ -60,6 +64,14 @@ public class Config {
     public void setMaxPictureCleanupHeapUsage(float maxPictureCleanupHeapUsage) {
         this.maxPictureCleanupHeapUsage = maxPictureCleanupHeapUsage;
 
+    }
+
+    public void setToolbarStyle(@StyleRes int toolbarStyle) {
+        this.toolbarThemeRes = toolbarStyle;
+    }
+
+    public int getToolbarStyle() {
+        return this.toolbarThemeRes;
     }
 
     public void setSavedDirectoryName(@StringRes int stringRes) {

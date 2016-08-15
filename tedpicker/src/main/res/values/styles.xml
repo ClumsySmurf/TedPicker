@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/action_icons</item>
+        <item name="android:textColorSecondary">@color/action_icons</item>
+        <item name="actionMenuTextColor">@color/action_icons</item>
+        <item name="actionOverflowButtonStyle">@style/Base.Widget.AppCompat.ActionButton.Overflow</item>
+        <item name="titleTextAppearance">@style/ToolbarTextStyle</item>
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
+    </style>
+
+
+    <style name="ToolbarTextStyle" parent="@style/TextAppearance.RobotoRegular">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="fontPath">fonts/Roboto-Regular.ttf</item>
+    </style>
+
+    <style name="TextAppearance.RobotoRegular" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="carbon_fontPath">fonts/Roboto-Regular.ttf</item>
+        <item name="fontPath">fonts/Roboto-Regular.ttf</item>
+        <item name="android:color">@android:color/white</item>
+    </style>
+</resources>

@@ -324,6 +324,13 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
         try {
             //cameraView.takePicture(true, false);
+
+            if (mConfig.isFlashOn()) {
+                cameraView.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+            } else {
+                cameraView.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            }
+
             cameraView.takePicture(false, true);
             //cameraView.takePicture();
 
@@ -515,8 +522,11 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
             }
 
+
             return super.adjustPictureParameters(xact, parameters);
         }
+
+
 
 
         @Override
@@ -524,7 +534,6 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
 
             // Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-
 
             Bitmap bitmap = null;
 

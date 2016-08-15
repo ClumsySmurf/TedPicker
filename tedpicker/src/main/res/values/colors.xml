@@ -19,5 +19,24 @@
     <color name="black_20">#14000000</color>
     <color name="black_30">#1d000000</color>
 
+    <color name="primary_light">#29b6f6</color>
+    <color name="primary">#1caae5</color>
+    <color name="gray">#f9f9f9</color>
+    <color name="home_gray_end">#f1f1f1</color>
+    <color name="home_gray_start">#e5e5e5</color>
+    <color name="dark">#282c36</color>
+    <color name="jungle_green">#FF282C36</color>
+    <color name="heading_bg">#929191</color>
+    <color name="hint_color" >#9FA4B1</color>
+    <color name="action_icons">#757575</color>
+    <color name="text_light">#feffff</color>
+    <color name="white_button">#f9f9f9</color>
+    <color name="empty_state_background" >#f5292d37</color>
+    <color name="primary_material_dark">@color/primary</color>
+    <color name="report_popup_dark" >#282c35</color>
+    <color name="outter_space">#FF4A4A4A</color>
+    <color name="onboard_blue">#27a9e1</color>
+
+
 
 </resources>

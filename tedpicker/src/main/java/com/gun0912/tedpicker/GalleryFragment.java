@@ -204,7 +204,6 @@ public class GalleryFragment extends Fragment {
                         .centerCrop()
                         .placeholder(R.drawable.place_holder_gallery)
                         .error(R.drawable.no_image)
-
                         .into(holder.mThumbnail);
                 holder.uri = mUri;
 
