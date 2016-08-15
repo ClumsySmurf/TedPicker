@@ -551,6 +551,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
                 parameters.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
                 String flashMode = CameraUtils.findBestFlashModeMatch(parameters, Camera.Parameters.FLASH_MODE_ON);
                 parameters.setFlashMode(flashMode);
+                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
                 Toast.makeText(getContext(), "Flash mode: " + flashMode, Toast.LENGTH_SHORT).show();
             }
 
