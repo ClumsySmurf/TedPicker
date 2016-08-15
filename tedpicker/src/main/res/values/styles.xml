@@ -19,7 +19,6 @@
 
     <style name="TextAppearance.RobotoRegular" parent="android:TextAppearance">
         <!-- Custom Attr-->
-        <item name="carbon_fontPath">fonts/Roboto-Regular.ttf</item>
         <item name="android:color">@android:color/white</item>
     </style>
 </resources>
