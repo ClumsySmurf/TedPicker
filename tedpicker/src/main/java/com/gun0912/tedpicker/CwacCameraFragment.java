@@ -37,6 +37,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.commonsware.cwac.camera.CameraUtils;
@@ -350,11 +351,6 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         try {
             //cameraView.takePicture(true, false);
 
-            if (mConfig.isFlashOn()) {
-                cameraView.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
-            } else {
-                cameraView.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            }
 
             cameraView.takePicture(false, true);
             //cameraView.takePicture();
@@ -373,6 +369,14 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
     public void onTakePicture(View view) {
         Log.d("gun0912", "onTakePicture()");
+
+        if (mConfig.isFlashOn()) {
+            cameraView.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+        } else {
+            cameraView.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        }
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && focusList == null
                 ) {
@@ -544,7 +548,9 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         public Camera.Parameters adjustPictureParameters(PictureTransaction xact, Camera.Parameters parameters) {
 
             if (mConfig.isFlashOn()) {
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+                String flashMode = CameraUtils.findBestFlashModeMatch(parameters, Camera.Parameters.FLASH_MODE_ON);
+                parameters.setFlashMode(flashMode);
+                Toast.makeText(getContext(), "Flash mode: " + flashMode, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -664,6 +670,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
 
         }
+
 
         private class SizeComparator implements
                 Comparator<Camera.Size> {
