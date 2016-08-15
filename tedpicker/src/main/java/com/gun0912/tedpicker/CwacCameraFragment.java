@@ -40,6 +40,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.CameraView;
 import com.commonsware.cwac.camera.PictureTransaction;
@@ -473,7 +474,10 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
             return new File(Environment.getExternalStorageDirectory() + "/" + getResources().getString(mConfig.getSavedDirectoryName()) + "/");
         }
 
-
+        @Override
+        public RecordingHint getRecordingHint() {
+            return CameraHost.RecordingHint.STILL_ONLY;
+        }
 
         private Camera.Size getBestPictureSize(Camera.Parameters parameters) {
             Log.d("gun0912", "getBestPictureSize()");
