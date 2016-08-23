@@ -247,6 +247,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
         zoom = (AppCompatSeekBar) view.findViewById(R.id.zoom);
         zoom.setKeepScreenOn(true);
+
         zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -602,6 +603,38 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
                // Toast.makeText(getContext(), "Flash mode: " + flashMode, Toast.LENGTH_SHORT).show();
             }
 
+            if (doesZoomReallyWork() && parameters.getMaxZoom() > 0) {
+                zoom.setMax(parameters.getMaxZoom());
+
+                zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        if (fromUser) {
+                            zoom.setEnabled(false);
+                            zoomTo(zoom.getProgress()).onComplete(new Runnable() {
+                                @Override
+                                public void run() {
+                                    zoom.setEnabled(true);
+                                }
+                            }).go();
+                        }
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+            } else {
+                zoom.setEnabled(false);
+                zoom.setVisibility(View.GONE);
+            }
 
             return super.adjustPictureParameters(xact, parameters);
         }
