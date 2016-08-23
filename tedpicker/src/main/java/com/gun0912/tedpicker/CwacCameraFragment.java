@@ -123,9 +123,10 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         ViewGroup.LayoutParams params = cameraView.getLayoutParams();
         params.height = (int) getResources().getDimension(mConfig.getCameraHeight());
 
-        Log.d("ted", "params.height: " + params.height);
-        cameraView.setLayoutParams(params);
-
+        if (params.height > 0) {
+            Log.d("ted", "params.height: " + params.height);
+            cameraView.setLayoutParams(params);
+        }
 
         // 카메라뷰의 크기와 위치를 가져온다
         // get CameraView's widht/height
