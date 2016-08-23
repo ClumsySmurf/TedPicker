@@ -27,6 +27,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,7 +38,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.SeekBar;
 
 import com.bumptech.glide.Glide;
 import com.commonsware.cwac.camera.CameraHost;
@@ -45,6 +46,7 @@ import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.CameraView;
 import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
+import com.commonsware.cwac.camera.ZoomTransaction;
 import com.gun0912.tedpicker.util.BitmapUtil;
 import com.gun0912.tedpicker.util.Util;
 import com.gun0912.tedpicker.view.DrawingView;
@@ -72,6 +74,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
     View vShutter;
     CameraView cameraView;
     ImageButton btn_toggle_flash;
+    AppCompatSeekBar zoom;
     DrawingView drawingView;
     List<Camera.Area> focusList;
     int device_orientation;
@@ -161,6 +164,9 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
+
+
+
     private void addSensorListener() {
 
         SensorManager sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
@@ -216,7 +222,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
     private void initView() {
 
-        
+
         if (view == null) {
             return;
         }
@@ -239,6 +245,33 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
         drawingView = (DrawingView) view.findViewById(R.id.drawingView);
 
+        zoom = (AppCompatSeekBar) view.findViewById(R.id.zoom);
+        zoom.setKeepScreenOn(true);
+        zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    zoom.setEnabled(false);
+                    zoomTo(zoom.getProgress()).onComplete(new Runnable() {
+                        @Override
+                        public void run() {
+                            zoom.setEnabled(true);
+                        }
+                    }).go();
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 
     private void updateFlashBttn() {
@@ -248,6 +281,8 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
             btn_toggle_flash.setImageResource(mConfig.getFlashBtnImageOff());
         }
     }
+
+
 
     private void focusOnTouch(MotionEvent event) {
 
@@ -368,6 +403,13 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
     }
 
+    public ZoomTransaction zoomTo(int level) {
+        return (cameraView.zoomTo(level));
+    }
+
+    public boolean doesZoomReallyWork() {
+        return(cameraView.doesZoomReallyWork());
+    }
 
     public void onTakePicture(View view) {
         Log.d("gun0912", "onTakePicture()");

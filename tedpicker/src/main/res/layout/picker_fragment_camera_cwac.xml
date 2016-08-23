@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016. Ted Park. All Rights Reserved
   -->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     >
+
     <ImageButton
         android:id="@+id/cam_flash_btn"
         android:layout_width="@dimen/ted_picker_fab_size"
@@ -16,19 +16,19 @@
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
         android:background="@null"
-        android:tint="@android:color/white"
-        android:src="@drawable/ic_flash_on_black_24dp"
         android:padding="15dp"
         android:scaleType="fitCenter"
-         />
+        android:src="@drawable/ic_flash_on_black_24dp"
+        android:tint="@android:color/white" />
+
 
     <!--android:layout_height="@dimen/post_detail_picture_viewpager"-->
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/ted_picker_camera_height"
         android:layout_centerInParent="true">
+
 
         <com.commonsware.cwac.camera.CameraView
             android:id="@+id/cameraView"
@@ -44,6 +44,25 @@
             />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@color/heading_bg"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/zoom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="100"
+                android:background="@android:color/transparent"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:progress="0"
+                />
+        </LinearLayout>
     </RelativeLayout>
 
 
