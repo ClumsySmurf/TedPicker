@@ -254,30 +254,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         zoom = (AppCompatSeekBar) view.findViewById(R.id.zoom);
         zoom.setKeepScreenOn(true);
 
-        zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
-                    zoom.setEnabled(false);
-                    zoomTo(zoom.getProgress()).onComplete(new Runnable() {
-                        @Override
-                        public void run() {
-                            zoom.setEnabled(true);
-                        }
-                    }).go();
-                }
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
     }
 
@@ -599,6 +576,43 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
 
         @Override
+        public Camera.Parameters adjustPreviewParameters(Camera.Parameters parameters) {
+
+            if (doesZoomReallyWork() && parameters.getMaxZoom() > 0) {
+                zoom.setMax(parameters.getMaxZoom());
+                int max = parameters.getMaxZoom();
+
+                zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        if (fromUser) {
+                            zoom.setEnabled(false);
+                            zoomTo(zoom.getProgress()).onComplete(new Runnable() {
+                                @Override
+                                public void run() {
+                                    zoom.setEnabled(true);
+                                }
+                            }).go();
+                        }
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+            }
+
+            return super.adjustPreviewParameters(parameters);
+        }
+
+        @Override
         public Camera.Parameters adjustPictureParameters(PictureTransaction xact, Camera.Parameters parameters) {
 
             if (mConfig.isFlashOn()) {
@@ -611,6 +625,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
             if (doesZoomReallyWork() && parameters.getMaxZoom() > 0) {
                 zoom.setMax(parameters.getMaxZoom());
+                int max = parameters.getMaxZoom();
 
                 zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -741,6 +756,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
                     param.setMeteringAreas(focusList);
 
                     camera.setParameters(param);
+
                     super.onAutoFocus(success, camera);
                 }
                 // 아무터치하지않고 그냥 바로 촬영버튼 누른경우
