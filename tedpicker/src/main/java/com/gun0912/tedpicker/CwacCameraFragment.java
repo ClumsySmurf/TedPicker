@@ -38,6 +38,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.bumptech.glide.Glide;
@@ -121,12 +122,16 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
 
         ViewGroup.LayoutParams params = cameraView.getLayoutParams();
-        params.height = (int) getResources().getDimension(mConfig.getCameraHeight());
+
 
         if (params.height > 0) {
             Log.d("ted", "params.height: " + params.height);
-            cameraView.setLayoutParams(params);
+            params.height = (int) getResources().getDimension(mConfig.getCameraHeight());
+        } else {
+            params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
         }
+
+        cameraView.setLayoutParams(params);
 
         // 카메라뷰의 크기와 위치를 가져온다
         // get CameraView's widht/height
