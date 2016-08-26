@@ -354,6 +354,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+
         if (v == btn_take_picture) {
             onTakePicture(v);
         } else if (v == btn_toggle_flash) {
@@ -382,6 +383,8 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
           //  Util.toast(this, getResources().getString(R.string.focusing));
 
+        } finally {
+            CwacCameraFragment.this.btn_take_picture.setEnabled(true);
         }
 
 
@@ -398,6 +401,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
     public void onTakePicture(View view) {
         Log.d("gun0912", "onTakePicture()");
 
+        view.setEnabled(false);
         if (mConfig.isFlashOn()) {
             cameraView.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
         } else {
@@ -618,7 +622,16 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
             if (mConfig.isFlashOn()) {
                 parameters.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
                 String flashMode = CameraUtils.findBestFlashModeMatch(parameters, Camera.Parameters.FLASH_MODE_ON);
-                parameters.setFlashMode(flashMode);
+
+                if (flashMode == null || flashMode == "") {
+                    mConfig.setFlashOn(false);
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    CwacCameraFragment.this.updateFlashBttn();
+                    CwacCameraFragment.this.btn_toggle_flash.setEnabled(false);
+                } else {
+                    parameters.setFlashMode(flashMode);
+                }
+
                 parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
                // Toast.makeText(getContext(), "Flash mode: " + flashMode, Toast.LENGTH_SHORT).show();
             }
