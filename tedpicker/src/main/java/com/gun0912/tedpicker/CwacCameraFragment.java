@@ -506,6 +506,11 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
         }
 
         @Override
+        public boolean useFullBleedPreview() {
+            return false;
+        }
+
+        @Override
         public RecordingHint getRecordingHint() {
             return CameraHost.RecordingHint.STILL_ONLY;
         }
@@ -708,8 +713,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
                 float ratio = camera_height / camera_width;
 
-                Bitmap crop_bitmap = BitmapUtil.cropCenterBitmap(bitmap, (int)camera_width, (int)camera_height);
-                        // BitmapUtil.cropCenterBitmap(bitmap, bitmap.getWidth(), (int) (bitmap.getWidth() * ratio));
+                Bitmap crop_bitmap =  BitmapUtil.cropCenterBitmap(bitmap,bitmap.getWidth(), bitmap.getHeight());
                 FileOutputStream fos;
 
                 fos = new FileOutputStream(photo);

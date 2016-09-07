@@ -6,6 +6,6 @@
 
 
     <dimen name="app_camera_height">150dp</dimen>
-
+    <dimen name="fill_parent">-2dp</dimen>
     <dimen name="bottom_height">150dp</dimen>
 </resources>
