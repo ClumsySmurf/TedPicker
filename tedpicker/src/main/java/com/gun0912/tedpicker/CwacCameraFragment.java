@@ -48,7 +48,6 @@ import com.commonsware.cwac.camera.CameraView;
 import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
 import com.commonsware.cwac.camera.ZoomTransaction;
-import com.gun0912.tedpicker.util.BitmapUtil;
 import com.gun0912.tedpicker.util.Util;
 import com.gun0912.tedpicker.view.DrawingView;
 
@@ -713,7 +712,7 @@ public class CwacCameraFragment extends Fragment implements View.OnClickListener
 
                 float ratio = camera_height / camera_width;
 
-                Bitmap crop_bitmap =  BitmapUtil.cropCenterBitmap(bitmap,bitmap.getWidth(), bitmap.getHeight());
+                Bitmap crop_bitmap =  bitmap;
                 FileOutputStream fos;
 
                 fos = new FileOutputStream(photo);
